@@ -14,6 +14,8 @@ export class InfluencerController {
     constructor(private readonly influencerService: InfluencerService) { }
 
     @Post()
+    @UseGuards(RolesGuard)
+    @Roles('admin', 'editor')
     createInfluencer(@Body() body: {
         name: string;
         socialnetwork: string;
@@ -23,6 +25,8 @@ export class InfluencerController {
     }
 
     @Get()
+    @UseGuards(RolesGuard)
+    @Roles('admin', 'editor')
     findAll(
         @Query('name') name?: string,
         @Query('socialnetwork') socialnetwork?: string,
@@ -31,6 +35,8 @@ export class InfluencerController {
     }
 
     @Put(':id')
+    @UseGuards(RolesGuard)
+    @Roles('admin', 'editor')
     updateInfluencer(
         @Param('id') id: string,
         @Body() body: {
@@ -48,6 +54,4 @@ export class InfluencerController {
     deleteInfluencer(@Param('id') id: string) {
         return this.influencerService.delete(id);
     }
-
-
 }

@@ -26,7 +26,7 @@ export class InfluencerService {
         const query: any = {};
 
         if (filters.name) {
-            query.name = { $regex: filters.name, $options: 'i' }; // busca parcial, case-insensitive
+            query.name = { $regex: filters.name, $options: 'i' };
         }
 
         if (filters.socialnetwork) {
