@@ -21,37 +21,14 @@ export class CampaignService {
         return campaign.save();
     }
 
+    /*    async findAll(): Promise<Campaign[]> {
+            return this.campaignModel.find().populate('influencers').exec();
+        }
+    */
+
     async findAll(): Promise<Campaign[]> {
         return this.campaignModel.find().populate('influencers').exec();
     }
-
-
-
-    /*  async update(id: string, data: UpdateCampaignDto): Promise<Campaign | null> {
-  
-          console.log('Dados recebidos no update:', data);
-  
-          if (data.influencers) {
-              data.influencers = data.influencers.map((id) =>
-                  new mongoose.Types.ObjectId(id),
-              ) as any;
-          }
-  
-         const updated = await this.campaignModel
-              .findByIdAndUpdate(id, data, { new: true })
-              .populate('influencers')
-              .exec();
-          
-          console.log('Resultado do update:', updated);
-  
-          return this.campaignModel
-              .findByIdAndUpdate(id, data, { new: true })
-              .populate('influencers')
-              .exec();
-      }
-  */
-
-
 
     async update(id: string, data: UpdateCampaignDto): Promise<Campaign | null> {
         console.log('Recebido para update:', id, data);
