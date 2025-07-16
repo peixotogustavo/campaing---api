@@ -3,6 +3,8 @@ import Login from './pages/Login';
 import CampaignList from './pages/CampaignList';
 import PrivateRoute from './components/PrivateRoute';
 import CampaignForm from './pages/CampaignForm';
+import CampaignEdit from './pages/CampaignEdit';
+
 
 function App() {
   return (
@@ -27,6 +29,16 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/campaigns/edit/:id"
+          element={
+            <PrivateRoute>
+              <CampaignEdit />
+            </PrivateRoute>
+          }
+        />
+
       </Routes>
     </Router>
   );
