@@ -7,7 +7,7 @@ function CampaignForm() {
         title: '',
         startDate: '',
         endDate: '',
-        influencers: [], // ainda será manual
+        influencers: [],
     });
 
     const navigate = useNavigate();

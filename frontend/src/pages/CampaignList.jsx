@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 
 import { jwtDecode } from 'jwt-decode';
-import * as jwt_decode from 'jwt-decode'; // ✅ CORRETA
-
+import * as jwt_decode from 'jwt-decode';
 
 
 function CampaignList() {

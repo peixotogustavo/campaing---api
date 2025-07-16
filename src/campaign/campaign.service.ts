@@ -21,11 +21,6 @@ export class CampaignService {
         return campaign.save();
     }
 
-    /*    async findAll(): Promise<Campaign[]> {
-            return this.campaignModel.find().populate('influencers').exec();
-        }
-    */
-
     async findAll(): Promise<Campaign[]> {
         return this.campaignModel.find().populate('influencers').exec();
     }
