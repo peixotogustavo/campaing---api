@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -50,6 +51,19 @@ function InfluencerForm() {
 
     return (
         <div style={{ padding: '1rem' }}>
+            <button
+                onClick={() => navigate('/influencers')}
+                style={{
+                    marginBottom: '1rem',
+                    backgroundColor: '#f0f0f0',
+                    padding: '0.5rem 1rem',
+                    cursor: 'pointer',
+                    border: '1px solid #ccc'
+                }}
+            >
+                Voltar para Lista de Influencers
+            </button>
+
             <h2>{id ? 'Editar' : 'Novo'} Influencer</h2>
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '1rem' }}>
@@ -82,7 +96,7 @@ function InfluencerForm() {
                         style={{ width: '100%' }}
                     />
                 </div>
-                <button type="submit" style={{ padding: '0.5rem 1rem' }}>
+                <button type="submit" style={{ padding: '0.5rem 1rem', backgroundColor: '#f0f0f0' }}>
                     Salvar
                 </button>
             </form>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,25 @@ function CampaignForm() {
         endDate: '',
         influencers: [],
     });
+    const [influencers, setInfluencers] = useState([]);
 
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const fetchInfluencers = async () => {
+            try {
+                const res = await axios.get('http://localhost:3000/influencers', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setInfluencers(res.data);
+            } catch (error) {
+                console.error('Erro ao buscar influencers:', error);
+            }
+        };
+
+        fetchInfluencers();
+    }, [token]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,15 +37,23 @@ function CampaignForm() {
         }));
     };
 
+    const handleCheckboxChange = (influencerId) => {
+        setForm((prev) => {
+            const isSelected = prev.influencers.includes(influencerId);
+            return {
+                ...prev,
+                influencers: isSelected
+                    ? prev.influencers.filter((id) => id !== influencerId)
+                    : [...prev.influencers, influencerId],
+            };
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-
             const res = await axios.post('http://localhost:3000/campaigns', form, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` }
             });
 
             console.log('Campanha criada com sucesso!', res.data);
@@ -92,21 +117,23 @@ function CampaignForm() {
                 </div>
 
                 <div>
-                    <label>Influencers (IDs separados por vírgula):</label><br />
-                    <input
-                        type="text"
-                        name="influencers"
-                        onChange={(e) =>
-                            setForm({
-                                ...form,
-                                influencers: e.target.value.split(',').map((id) => id.trim()),
-                            })
-                        }
-                        placeholder="Ex: 123abc, 456def"
-                    />
+                    <label>Influenciadores:</label>
+                    <div>
+                        {influencers.map((inf) => (
+                            <label key={inf._id} style={{ display: 'block', marginTop: '0.3rem' }}>
+                                <input
+                                    type="checkbox"
+                                    value={inf._id}
+                                    checked={form.influencers.includes(inf._id)}
+                                    onChange={() => handleCheckboxChange(inf._id)}
+                                />
+                                {inf.name} ({inf.socialnetwork})
+                            </label>
+                        ))}
+                    </div>
                 </div>
 
-                <button type="submit" style={{ marginTop: '1rem' }}>
+                <button type="submit" style={{ marginTop: '1rem', backgroundColor: '#e0e0ff' }}>
                     Salvar campanha
                 </button>
             </form>

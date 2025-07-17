@@ -32,6 +32,16 @@ function App() {
         />
 
         <Route
+          path="/influencers/new"
+          element={
+            <PrivateRoute>
+              <InfluencerForm />
+            </PrivateRoute>
+          }
+        />
+
+
+        <Route
           path="/campaigns/edit/:id"
           element={
             <PrivateRoute>

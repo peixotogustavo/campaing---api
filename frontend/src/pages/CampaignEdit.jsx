@@ -14,7 +14,6 @@ function CampaignEdit() {
 
     const token = localStorage.getItem('token');
 
-    // Buscar dados da campanha pelo ID
     useEffect(() => {
         const fetchCampaign = async () => {
             try {
@@ -78,8 +77,23 @@ function CampaignEdit() {
     };
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ padding: '2rem', }}>
+            {/* Botão Voltar */}
+            <button
+                onClick={() => navigate('/campaigns')}
+                style={{
+                    marginBottom: '1rem',
+                    backgroundColor: '#e0e0ff',
+                    padding: '0.5rem 1rem',
+                    border: '1px solid #ccc',
+                    cursor: 'pointer',
+                }}
+            >
+                Voltar para Campanhas
+            </button>
+
             <h2>Editar Campanha</h2>
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Título:</label>
@@ -128,7 +142,7 @@ function CampaignEdit() {
                     </div>
                 </div>
 
-                <button type="submit" style={{ marginTop: '1rem' }}>
+                <button type="submit" style={{ marginTop: '1rem', backgroundColor: '#e0e0ff' }}>
                     Salvar alterações
                 </button>
             </form>

@@ -41,19 +41,32 @@ function InfluencerList() {
 
     return (
         <div style={{ padding: '2rem' }}>
-            {/* Botão para voltar para campanhas */}
-            <button
-                onClick={() => navigate('/campaigns')}
-                style={{
-                    marginBottom: '1rem',
-                    backgroundColor: '#e0e0ff',
-                    border: '1px solid #ccc',
-                    padding: '0.5rem 1rem',
-                    cursor: 'pointer'
-                }}
-            >
-                Voltar para Campanhas
-            </button>
+            {/* Botões de navegação */}
+            <div style={{ marginBottom: '1rem' }}>
+                <button
+                    onClick={() => navigate('/campaigns')}
+                    style={{
+                        marginRight: '1rem',
+                        backgroundColor: '#e0e0ff',
+                        border: '1px solid #ccc',
+                        padding: '0.5rem 1rem',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Voltar para Campanhas
+                </button>
+                <button
+                    onClick={() => navigate('/influencers/new')}
+                    style={{
+                        backgroundColor: '#d1f5d3',
+                        border: '1px solid #ccc',
+                        padding: '0.5rem 1rem',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Adicionar Influencer
+                </button>
+            </div>
 
             <h2>Lista de Influencers</h2>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
