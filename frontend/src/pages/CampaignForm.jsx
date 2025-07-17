@@ -41,6 +41,20 @@ function CampaignForm() {
 
     return (
         <div style={{ padding: '2rem' }}>
+            {/* Botão de Voltar */}
+            <button
+                onClick={() => navigate('/campaigns')}
+                style={{
+                    marginBottom: '1rem',
+                    backgroundColor: '#e0e0ff',
+                    border: '1px solid #ccc',
+                    padding: '0.5rem 1rem',
+                    cursor: 'pointer',
+                }}
+            >
+                Voltar para Campanhas
+            </button>
+
             <h2>Criar Nova Campanha</h2>
 
             <form onSubmit={handleSubmit}>

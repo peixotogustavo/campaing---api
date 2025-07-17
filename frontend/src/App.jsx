@@ -4,7 +4,8 @@ import CampaignList from './pages/CampaignList';
 import PrivateRoute from './components/PrivateRoute';
 import CampaignForm from './pages/CampaignForm';
 import CampaignEdit from './pages/CampaignEdit';
-
+import InfluencerList from './pages/InfluencerList';
+import InfluencerForm from './pages/InfluencerForm';
 
 function App() {
   return (
@@ -39,6 +40,23 @@ function App() {
           }
         />
 
+        <Route
+          path="/influencers"
+          element={
+            <PrivateRoute>
+              <InfluencerList />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/influencers/edit/:id"
+          element={
+            <PrivateRoute>
+              <InfluencerForm />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );

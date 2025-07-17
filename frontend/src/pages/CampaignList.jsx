@@ -6,7 +6,6 @@ import Header from '../components/Header';
 import { jwtDecode } from 'jwt-decode';
 import * as jwt_decode from 'jwt-decode';
 
-
 function CampaignList() {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
@@ -43,7 +42,6 @@ function CampaignList() {
                 },
             });
 
-            // Remove a campanha da lista sem recarregar a página
             setCampaigns((prev) => prev.filter((c) => c._id !== id));
         } catch (error) {
             console.error('Erro ao excluir campanha:', error);
@@ -57,69 +55,59 @@ function CampaignList() {
     if (token) {
         try {
             const decoded = jwt_decode.jwtDecode(token);
-
-
             role = decoded.role;
         } catch (err) {
             console.error('Token inválido:', err);
         }
     }
 
-
-
     return (
         <div>
             <Header />
 
-            <div style={{ padding: '2rem' }}>
 
 
-                <h2>Lista de Campanhas</h2>
+            <h2>Lista de Campanhas</h2>
 
-                <button onClick={() => navigate('/campaigns/new')} style={{ marginBottom: '1rem', backgroundColor: '#f0f0f0' }}>
+            {/* Botões de ação */}
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                <button
+                    onClick={() => navigate('/campaigns/new')}
+                    style={{ backgroundColor: '#e0e0ff' }}
+                >
                     Nova Campanha
                 </button>
 
-                {campaigns.map((c) => (
-                    <div key={c._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
-                        <h3>{c.title}</h3>
-                        <p><strong>Início:</strong> {new Date(c.startDate).toLocaleDateString()}</p>
-                        <p><strong>Fim:</strong> {new Date(c.endDate).toLocaleDateString()}</p>
+                <button
+                    onClick={() => navigate('/influencers')}
+                    style={{ backgroundColor: '#e0e0ff' }}
+                >
+                    Listar Influencers
+                </button>
+            </div>
 
-                        <p><strong>Influenciadores:</strong></p>
-                        <ul>
-                            {c.influencers.map((inf) => (
-                                <li key={inf._id}>
-                                    {inf.name} ({inf.socialnetwork})
-                                </li>
-                            ))}
-                        </ul>
+            {campaigns.map((c) => (
+                <div
+                    key={c._id}
+                    style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}
+                >
+                    <h3>{c.title}</h3>
+                    <p><strong>Início:</strong> {new Date(c.startDate).toLocaleDateString()}</p>
+                    <p><strong>Fim:</strong> {new Date(c.endDate).toLocaleDateString()}</p>
 
+                    <p><strong>Influenciadores:</strong></p>
+                    <ul>
+                        {c.influencers.map((inf) => (
+                            <li key={inf._id}>
+                                {inf.name} ({inf.socialnetwork})
+                            </li>
+                        ))}
+                    </ul>
 
-
-
-                        {role === 'admin' && (
-                            <button
-                                onClick={() => handleDelete(campaign._id)}
-                                style={{
-                                    backgroundColor: '#dc3545',
-                                    color: 'white',
-                                    border: 'none',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer',
-                                    marginLeft: '0.5rem',
-                                }}
-                            >
-                                Excluir
-                            </button>
-                        )}
-
-
+                    <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
                         <button
                             onClick={() => navigate(`/campaigns/edit/${c._id}`)}
                             style={{
-                                flex: 1,
                                 backgroundColor: 'orange',
                                 color: 'white',
                                 border: 'none',
@@ -131,15 +119,27 @@ function CampaignList() {
                             Editar
                         </button>
 
-
+                        {role === 'admin' && (
+                            <button
+                                onClick={() => handleDelete(c._id)}
+                                style={{
+                                    backgroundColor: '#dc3545',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Excluir
+                            </button>
+                        )}
                     </div>
-                ))}
-
-            </div>
-
+                </div>
+            ))}
         </div>
+
     );
 }
 
 export default CampaignList;
-
